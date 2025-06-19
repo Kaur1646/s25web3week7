@@ -25,7 +25,7 @@ document.querySelector("#toasted").addEventListener("change", function(){
 document.querySelector("#gluten").addEventListener("change", function(){
     //use a shorthand if statement to ask the question
     //figure out whether the checkbox is checked or unchecked
-    sandwich.bread.glutenfree = (this.checked) ? true : false;
+    sandwich.bread.glutenFree = (this.checked) ? true : false;
     console.log(sandwich);
 });
 
@@ -96,3 +96,34 @@ function addVeggies(){
     }
     console.log(sandwich);
 }
+
+
+//add an event listener to the form to see when it is submitted
+document.querySelector("form").addEventListener("submit", function(event){
+    //stop the form from submitting by stopping it's default behaviour
+    event.preventDefault();
+
+    //validate the form...
+    //first check if the user selected a bread type
+    if(sandwich.bread.kind == ""){
+        //use template literals to create the html for the error
+        const messageTemplate = `<p class="red">Your sandwich has to be on bread!</p>`;
+        document.querySelector(".order").innerHTML = messageTemplate;
+    }else if(sandwich.protein.length == 0 && sandwich.veggies.length == 0){
+        //if both toppings arrays are empty, the user didn't select anything
+        const messageTemplate = `<p class="red">Your sandwich needs topping!</p>`;
+        document.querySelector(".order").innerHTML = messageTemplate;
+    }else{
+        //they have both bread and toppings, so confirm their order...
+        //create a message that repeats what they wanted
+
+        //turn our boolean values into readable text...
+        const toastedM = (sandwich.toasted) ? "toasted" : "";
+        const glutenM = (sandwich.bread.glutenFree) ? "gluten free" : "";
+        
+
+        //build a message based on all the things in the object
+        const messageTemplate = `<p>You ordered a ${toastedM} sandwich on ${glutenM} ${sandwich.bread.kind} with ${sandwich.protein.join(", ")} and ${sandwich.veggies.join(", ")}.</p>`;
+        document.querySelector(".order").innerHTML = messageTemplate;
+    }
+});
