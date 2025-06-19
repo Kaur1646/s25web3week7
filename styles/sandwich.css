@@ -114,6 +114,11 @@ form .submit input{
 /*************************************************
             Fake Checkboxes/Radios
 *************************************************/
+/* make our labels flexbox so things sit next to each other */
+form label{
+    display:flex;
+    align-items:baseline;
+}
 
 /*use CSS to hide the original checkboxes and radios, and replace them with something
 that actually looks nice */
